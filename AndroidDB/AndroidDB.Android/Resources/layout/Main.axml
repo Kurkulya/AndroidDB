@@ -1,80 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
-    p1:orientation="vertical"
-    p1:layout_width="match_parent"
-    p1:layout_height="match_parent"
-    p1:weightSum="100">
-    <TextView
-        p1:textAppearance="?android:attr/textAppearanceMedium"
-        p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/Table"
-        p1:layout_weight="94" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:background="@android:color/holo_orange_dark">
     <android.support.v7.widget.RecyclerView
-      p1:id="@+id/recyclerView"
-      p1:scrollbars="vertical"
-      p1:layout_width="fill_parent"
-      p1:layout_height="fill_parent" />
+        android:id="@+id/recyclerView"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="94" />
     <LinearLayout
-        p1:orientation="horizontal"
-        p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
-        p1:weightSum="10"
-        p1:layout_weight="3">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:layout_weight="3">
         <EditText
-            p1:layout_height="match_parent"
-            p1:layout_width="0dp"
-            p1:id="@+id/ID"
-            p1:layout_weight="1"
-            p1:hint="Id" />
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:id="@+id/ID"
+            android:layout_weight="1"
+            android:hint="Id"
+            android:textStyle="italic"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black" />
         <EditText
-            p1:layout_height="match_parent"
-            p1:layout_width="0dp"
-            p1:id="@+id/FN"
-            p1:layout_weight="4"
-            p1:hint="First Name" />
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:id="@+id/FN"
+            android:layout_weight="4"
+            android:hint="First Name"
+            android:textColorHint="@android:color/black"
+            android:textColor="@android:color/black"
+            android:textColorLink="@android:color/black"
+            android:textStyle="italic" />
         <EditText
-            p1:layout_height="match_parent"
-            p1:layout_width="0dp"
-            p1:id="@+id/LN"
-            p1:layout_weight="3"
-            p1:hint="Last Name" />
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:id="@+id/LN"
+            android:layout_weight="3"
+            android:hint="Last Name"
+            android:textStyle="italic"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black" />
         <EditText
-            p1:layout_height="match_parent"
-            p1:layout_width="0dp"
-            p1:id="@+id/AGE"
-            p1:layout_weight="2"
-            p1:hint="Age" />
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:id="@+id/AGE"
+            android:layout_weight="2"
+            android:hint="Age"
+            android:textStyle="italic"
+            android:textColorHint="@android:color/black"
+            android:textColor="@android:color/black" />
     </LinearLayout>
     <LinearLayout
-        p1:orientation="horizontal"
-        p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
-        p1:weightSum="4"
-        p1:layout_weight="3">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:layout_weight="3">
         <Button
-            p1:text="CREATE"
-            p1:layout_width="wrap_content"
-            p1:layout_height="match_parent"
-            p1:id="@+id/btnCreate"
-            p1:layout_weight="1" />
+            android:text="CREATE"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnCreate"
+            android:layout_weight="1"
+            android:background="@android:color/background_light"
+            android:textColor="@android:color/black"
+            android:layout_margin="1dp" />
         <Button
-            p1:text="READ"
-            p1:layout_width="wrap_content"
-            p1:layout_height="match_parent"
-            p1:id="@+id/btnRead"
-            p1:layout_weight="1" />
+            android:text="READ"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnRead"
+            android:layout_weight="1"
+            android:background="@android:color/background_light"
+            android:textColor="@android:color/black"
+            android:layout_margin="1dp" />
         <Button
-            p1:text="UPDATE"
-            p1:layout_width="wrap_content"
-            p1:layout_height="match_parent"
-            p1:id="@+id/btnUpdate"
-            p1:layout_weight="1" />
+            android:text="UPDATE"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnUpdate"
+            android:layout_weight="1"
+            android:background="@android:color/background_light"
+            android:textColor="@android:color/black"
+            android:layout_margin="1dp" />
         <Button
-            p1:text="DELETE"
-            p1:layout_width="wrap_content"
-            p1:layout_height="match_parent"
-            p1:id="@+id/btnDelete"
-            p1:layout_weight="1" />
+            android:text="DELETE"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnDelete"
+            android:layout_weight="1"
+            android:background="@android:color/background_light"
+            android:textColor="@android:color/black"
+            android:layout_margin="1dp" />
     </LinearLayout>
 </LinearLayout>

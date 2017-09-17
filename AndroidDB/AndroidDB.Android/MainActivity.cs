@@ -6,56 +6,31 @@ using System.IO;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using Android.Support.V7.Widget;
+using AndroidDB.Droid.RV;
 
 namespace AndroidDB.Droid
 {
     [Activity (Label = "AndroidDB", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
-        string connectionString = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "dbPeople.db3");
 
-        IPersonDAO database = null;
+        RecyclerView _recyclerView;
+   
+        IPersonDAO _database = null;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            // Set our view from the "main" layout resource
+            
             SetContentView(Resource.Layout.Main);
-            database = DBFactory.GetInstance("SQLite", GetDBPath("Petople.db"));
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button btnCreate = FindViewById<Button>(Resource.Id.btnCreate);
-            Button btnUpdate = FindViewById<Button>(Resource.Id.btnUpdate);
-            Button btnDelete = FindViewById<Button>(Resource.Id.btnDelete);
-            Button btnRead = FindViewById<Button>(Resource.Id.btnRead);
+            _database = DBFactory.GetInstance("SQLite", GetDBPath("Petople.db"));
 
-            btnCreate.Click += delegate
-            {
-                database.Create(GetPerson());
-    
-            };
+            _recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            _recyclerView.HasFixedSize = true;
+            _recyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
-            btnUpdate.Click += delegate
-            {
-                database.Update(GetPerson());
-            };
-
-            btnDelete.Click += delegate
-            {
-                database.Delete(GetPerson());
-            };
-
-            btnRead.Click += delegate
-            {
-                List<Person> people = database.Read();
-                TextView table = FindViewById<TextView>(Resource.Id.Table);
-                table.Text = "";
-                foreach (Person person in people)
-                {
-                    table.Text += $"Id: {person.Id}, FirstName: {person.FirstName}, LastName: {person.LastName}, Age: {person.Age}\n";
-                }
-            };
-
+            SetButtonListeners();
         }
 
         private Person GetPerson()
@@ -72,7 +47,35 @@ namespace AndroidDB.Droid
             var path = Path.Combine(documentsPath, sqliteFilename);
             return path;
         }
+        private void SetButtonListeners()
+        {
+            Button btnCreate = FindViewById<Button>(Resource.Id.btnCreate);
+            Button btnUpdate = FindViewById<Button>(Resource.Id.btnUpdate);
+            Button btnDelete = FindViewById<Button>(Resource.Id.btnDelete);
+            Button btnRead = FindViewById<Button>(Resource.Id.btnRead);
 
+            btnCreate.Click += delegate
+            {
+                _database.Create(GetPerson());
+
+            };
+
+            btnUpdate.Click += delegate
+            {
+                _database.Update(GetPerson());
+            };
+
+            btnDelete.Click += delegate
+            {
+                _database.Delete(GetPerson());
+            };
+
+            btnRead.Click += delegate
+            {
+                List<Person> people = _database.Read();
+                _recyclerView.SetAdapter(new PersonDBAdapter(people));
+            };
+        }
     }
 }
 

@@ -13,11 +13,9 @@ namespace AndroidDB
     class PersonDAO_SQLite : IPersonDAO
     {
         SQLiteConnection connection = null;
-        public PersonDAO_SQLite(string datapath)
+        public PersonDAO_SQLite()
         {
-            //string documentsPath = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            //var path = Path.Combine(documentsPath, sqliteFilename);
-            connection = new SQLiteConnection(datapath);
+            connection = new SQLiteConnection(GetDBPath("Petople.db"));
             connection.CreateTable<Person>();
         }
 
@@ -41,5 +39,11 @@ namespace AndroidDB
             connection.Update(person);
         }
 
+        public string GetDBPath(string sqliteFilename)
+        {
+            string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var path = Path.Combine(documentsPath, sqliteFilename);
+            return path;
+        }
     }
 }

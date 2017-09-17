@@ -15,7 +15,8 @@ namespace AndroidDB
         Realm realm = null;
         public PersonDAO_Realm()
         {
-            realm = Realm.GetInstance();
+            var config = new RealmConfiguration("db.realm");
+            realm = Realm.GetInstance(config);
         }
 
         public void Create(Person person)
@@ -39,12 +40,17 @@ namespace AndroidDB
 
         public List<Person> Read()
         {
-            return realm.All<PersonR>().Select(x => x.person).ToList();
+            List<Person> listPR = new List<Person>();
+            var people = realm.All<PersonR>();
+            foreach (PersonR pr in people)
+            {
+                listPR.Add(pr.GetPerson());
+            }
+            return listPR;
         }
 
         public void Update(Person person)
         {
-
             realm.Write(() => realm.Add(new PersonR(person), true));
         }
 

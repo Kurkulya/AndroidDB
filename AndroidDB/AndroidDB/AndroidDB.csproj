@@ -33,12 +33,6 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DataBase\DBFactory.cs" />
-    <Compile Include="DataBase\IPersonDAO.cs" />
-    <Compile Include="DataBase\Person.cs" />
-    <Compile Include="DataBase\Realm\PersonDAO_Realm.cs" />
-    <Compile Include="DataBase\Realm\PersonR.cs" />
-    <Compile Include="DataBase\SQLite\PersonDAO_SQLite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

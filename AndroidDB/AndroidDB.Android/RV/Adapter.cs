@@ -27,7 +27,7 @@ namespace AndroidDB.Droid.RV
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             // set the view's size, margins, paddings and layout parameters
-            var id = Resource.Layout.RecV;
+            var id = Resource.Layout.Item;
             var itemView = LayoutInflater.From(parent.Context).Inflate(id, parent, false);
 
             return new PersonViewHolder(itemView);

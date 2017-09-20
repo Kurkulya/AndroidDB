@@ -28,7 +28,7 @@ namespace AndroidDB.Droid
             
             SetContentView(Resource.Layout.Main);
             Instance = this;
-            Database = DBFactory.GetInstance("Realm");
+            Database = DBFactory.GetInstance("Realm", GetDBPath());
 
             mLeftItems.Add("Realm");
             mLeftItems.Add("SQLite");
@@ -50,7 +50,7 @@ namespace AndroidDB.Droid
 
         private void OnDataBasePick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Database = DBFactory.GetInstance(mLeftItems[e.Position]);
+            Database = DBFactory.GetInstance(mLeftItems[e.Position], GetDBPath());
             ReadDataBase();
         }
 
@@ -64,6 +64,13 @@ namespace AndroidDB.Droid
         {
             List<Person> people = Database.Read();
             _recyclerView.SetAdapter(new PersonDBAdapter(people));
+        }
+
+        public string GetDBPath()
+        {
+            string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var path = Path.Combine(documentsPath, "Petople.db");
+            return path;
         }
     }
 }

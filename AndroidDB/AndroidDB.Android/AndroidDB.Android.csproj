@@ -98,12 +98,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase\DBFactory.cs" />
-    <Compile Include="DataBase\IPersonDAO.cs" />
-    <Compile Include="DataBase\Person.cs" />
-    <Compile Include="DataBase\Realm\PersonDAO_Realm.cs" />
-    <Compile Include="DataBase\Realm\PersonR.cs" />
-    <Compile Include="DataBase\SQLite\PersonDAO_SQLite.cs" />
     <Compile Include="CreateActivity.cs" />
     <Compile Include="UpdateActivity.cs" />
     <Compile Include="MainActivity.cs" />

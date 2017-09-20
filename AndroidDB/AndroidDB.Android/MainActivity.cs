@@ -19,6 +19,7 @@ namespace AndroidDB.Droid
         public static MainActivity Instance { get; set; }
         static RecyclerView _recyclerView;
         List<string> mLeftItems = new List<string>();
+        DrawerLayout drawLayout;
 
         public static IPersonDAO Database { get; set; }
 
@@ -33,7 +34,7 @@ namespace AndroidDB.Droid
             mLeftItems.Add("Realm");
             mLeftItems.Add("SQLite");
 
-            DrawerLayout dl = FindViewById<DrawerLayout>(Resource.Id.mydrawer);
+            drawLayout = FindViewById<DrawerLayout>(Resource.Id.mydrawer);
             ListView mLeftDrawer = FindViewById<ListView>(Resource.Id.leftsideview);
             ArrayAdapter mLeftAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
             mLeftDrawer.Adapter = mLeftAdapter;
@@ -51,6 +52,7 @@ namespace AndroidDB.Droid
         private void OnDataBasePick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Database = DBFactory.GetInstance(mLeftItems[e.Position], GetDBPath());
+            drawLayout.CloseDrawers();
             ReadDataBase();
         }
 

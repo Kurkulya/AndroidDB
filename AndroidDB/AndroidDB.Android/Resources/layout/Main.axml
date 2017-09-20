@@ -42,10 +42,11 @@
     </LinearLayout>
     <ListView
         android:id="@+id/leftsideview"
-        android:layout_width="80dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:choiceMode="singleChoice"
-        android:divider="#D2D2D2"
-        android:dividerHeight="2dp" />
+        android:layout_width="100dp"  
+        android:layout_height="match_parent"  
+        android:layout_gravity="left"  
+        android:background="@color/cardview_shadow_start_color"
+        android:choiceMode="singleChoice"  
+        android:divider="#D2D2D2"  
+        android:dividerHeight="2dp" /> 
 </android.support.v4.widget.DrawerLayout>

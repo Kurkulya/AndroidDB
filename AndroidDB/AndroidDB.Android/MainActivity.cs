@@ -8,84 +8,62 @@ using System;
 using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using AndroidDB.Droid.RV;
+using Android.Content;
+using Android.Support.V4.Widget;
 
 namespace AndroidDB.Droid
 {
     [Activity (Label = "DataBase", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
+        public static MainActivity Instance { get; set; }
+        static RecyclerView _recyclerView;
+        List<string> mLeftItems = new List<string>();
 
-        RecyclerView _recyclerView;
-   
-        IPersonDAO _database = null;
+        public static IPersonDAO Database { get; set; }
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             
             SetContentView(Resource.Layout.Main);
-            _database = DBFactory.GetInstance("Realm");
+            Instance = this;
+            Database = DBFactory.GetInstance("Realm");
+
+            mLeftItems.Add("Realm");
+            mLeftItems.Add("SQLite");
+
+            DrawerLayout dl = FindViewById<DrawerLayout>(Resource.Id.mydrawer);
+            ListView mLeftDrawer = FindViewById<ListView>(Resource.Id.leftsideview);
+            ArrayAdapter mLeftAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
+            mLeftDrawer.Adapter = mLeftAdapter;
 
             _recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
             _recyclerView.HasFixedSize = true;
             _recyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
-            SetButtonListeners();
-            SetRBListeners();
-        }
-
-        private Person GetPerson()
-        {
-            return new Person(Int32.Parse(FindViewById<EditText>(Resource.Id.ID).Text),
-                              FindViewById<EditText>(Resource.Id.FN).Text,
-                              FindViewById<EditText>(Resource.Id.LN).Text,
-                              Int32.Parse(FindViewById<EditText>(Resource.Id.AGE).Text));
-        }
-       
-        private void SetButtonListeners()
-        {
             Button btnCreate = FindViewById<Button>(Resource.Id.btnCreate);
-            Button btnUpdate = FindViewById<Button>(Resource.Id.btnUpdate);
-            Button btnDelete = FindViewById<Button>(Resource.Id.btnDelete);
-            Button btnRead = FindViewById<Button>(Resource.Id.btnRead);
+            btnCreate.Click += delegate { StartActivity(typeof(CreateActivity)); };
 
-            btnCreate.Click += CRUDClick;
-            btnUpdate.Click += CRUDClick;
-            btnDelete.Click += CRUDClick;
-            btnRead.Click += CRUDClick;
-        }
-        private void SetRBListeners()
-        {
-            RadioButton rRealm = FindViewById<RadioButton>(Resource.Id.rRealm);
-            RadioButton rSQLite = FindViewById<RadioButton>(Resource.Id.rSQlite);
-
-            rRealm.Click += RadioButtonClick;
-            rSQLite.Click += RadioButtonClick;
+            mLeftDrawer.ItemClick += OnDataBasePick;  
         }
 
-        private void RadioButtonClick(object sender, EventArgs e)
+        private void OnDataBasePick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            RadioButton rb = (RadioButton)sender;
-            _database = DBFactory.GetInstance(rb.Text);
+            Database = DBFactory.GetInstance(mLeftItems[e.Position]);
             ReadDataBase();
         }
 
-        private void ReadDataBase()
+        protected override void OnResume()
         {
-            List<Person> people = _database.Read();
+            base.OnResume();
+            ReadDataBase();
+        }
+
+        public static void ReadDataBase()
+        {
+            List<Person> people = Database.Read();
             _recyclerView.SetAdapter(new PersonDBAdapter(people));
-        }
-
-        private void CRUDClick(object sender, EventArgs e)
-        {
-            Button b = (Button)sender;
-            switch(b.Text)
-            {
-                case "CREATE": _database.Create(GetPerson());break;
-                case "UPDATE": _database.Update(GetPerson()); break;
-                case "DELETE": _database.Delete(GetPerson()); break;
-            }
-            ReadDataBase();
         }
     }
 }
